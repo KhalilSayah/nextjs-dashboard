@@ -19,6 +19,7 @@ export interface TokenAllocation {
   
 export default async function fetchAllDataFromApi(): Promise<TokensResponse> {
     try {
+      console.log("fetching data ...")
       const response = await fetch('https://tokenmonitoring-4b3ac-default-rtdb.europe-west1.firebasedatabase.app/.json');
   
       if (!response.ok) {
@@ -26,6 +27,7 @@ export default async function fetchAllDataFromApi(): Promise<TokensResponse> {
       }
   
       const data: TokensResponse = await response.json();
+      console.log("Fetched data: ",  data);
       return data;
     } catch (error) {
       console.error('Failed to fetch data:', error);
