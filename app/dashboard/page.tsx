@@ -1,25 +1,12 @@
-"use client";
+import DashboardPage from "@/components/pages/dashboard-page";
+import fetchAllDataFromApi from "../lib/api";
 
-import { useState } from "react";
-import { List } from "@/components/list";
-import Search from "../ui/search";
-import { DataProvider } from "@/components/data-provider";
 
-export default function Page({
-  searchParams,
-}: {
-  searchParams?: {
-    query?: string;
-  };
-}) {
-  const [searchQuery, setSearchQuery] = useState(searchParams?.query || "");
+export default async function (){
+  const data = await fetchAllDataFromApi()
+  const transformData = data?.tokens?.data ? Object.keys(data.tokens.data) : []
 
   return (
-    <DataProvider>
-      <div className="container mx-auto p-4">
-        <Search placeholder="Search a token..." onSearch={setSearchQuery} />
-        <List searchQuery={searchQuery} />
-      </div>
-    </DataProvider>
-  );
+    <DashboardPage data={transformData}/>
+  )
 }
